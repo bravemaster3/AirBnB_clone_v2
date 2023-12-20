@@ -38,7 +38,8 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as cons_out:
             cons = HBNBCommand()
 
-            cons.onecmd('create Place name="Center" num="00001" max_guest=10 lat=127.2345 sp="sp_ace"')
+            cons.onecmd('create Place name="Center" num="00001" \
+                        max_guest=10 lat=127.2345 sp="sp_ace"')
             _id = cons_out.getvalue().strip()
 
             cons.onecmd(f"show Place {_id}")
@@ -56,11 +57,12 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as cons_out:
             cons = HBNBCommand()
 
-            #Test that an error is raised when no arguments are passed
+            # Test that an error is raised when no arguments are passed
             with self.assertRaises(sqlalchemy.exc.OperationalError):
                 cons.onecmd('create City')
 
-            cons.onecmd('create User email="test@hbnb.tech" password="my_pass"')
+            cons.onecmd('create User email="test@hbnb.tech" \
+                        password="my_pass"')
             _id = cons_out.getvalue().strip()
 
             db_connect = MySQLdb.connect(

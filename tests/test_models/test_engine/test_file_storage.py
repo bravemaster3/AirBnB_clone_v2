@@ -22,7 +22,7 @@ class test_fileStorage(unittest.TestCase):
         """ Remove storage file at end of tests """
         try:
             os.remove('file.json')
-        except:
+        except Exception:
             pass
 
     # @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == "db",
@@ -59,7 +59,6 @@ class test_fileStorage(unittest.TestCase):
 
         for obj in temp2.values():
             self.assertEqual(obj.to_dict()['id'], new_state.to_dict()['id'])
-
 
     def test_base_model_instantiation(self):
         """ File is not created on BaseModel save """
@@ -145,4 +144,4 @@ class test_fileStorage(unittest.TestCase):
         new = BaseModel()
         new.save()
         storage.delete(new)
-        storage.delete(new) # Do nothing when it doesn't exist
+        storage.delete(new)  # Do nothing when it doesn't exist
