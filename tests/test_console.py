@@ -4,6 +4,7 @@ Writing some tests for the console
 """
 import unittest
 import sqlalchemy
+from sqlalchemy.exc import IntegrityError
 import json
 import os
 from io import StringIO
@@ -17,6 +18,27 @@ class TestConsole(unittest.TestCase):
     """
     Test class for the console.
     """
+    def setUp(self):
+        # Redirect stdout to capture console output
+        self.stdout_patch = unittest.mock.patch('sys.stdout', new_callable=StringIO)
+        self.stdout_mock = self.stdout_patch.start()
+
+    def tearDown(self):
+        # Clean up and restore stdout
+        self.stdout_patch.stop()
+
+    # def test_non_nullable_column_not_provided(self):
+    #     # Attempt to create a State instance without providing 'name'
+    #     cons = HBNBCommand()
+    #     with self.assertRaises(IntegrityError):
+    #         state = State()
+    #         storage.new(state)
+    #         storage.save()
+
+        # Check that the expected IntegrityError message is printed
+        # self.assertIn("Column 'name' cannot be null", self.stdout_mock.getvalue())
+
+
     def get_console(self, command):
         """Method for getting the console"""
         with patch('sys.stdout', new=StringIO()) as cons_out:
@@ -52,17 +74,19 @@ class TestConsole(unittest.TestCase):
 
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != "db",
                      "only available in the filestorage")
+    def test_db_raise_error_nullable(self):
+        """Testing that error is raised when non nullable field is empty"""
+        with self.assertRaises(IntegrityError):
+            cons = HBNBCommand()
+            cons.onecmd('create State')
+
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != "db",
+                     "only available in the filestorage")
     def test_db_create_show(self):
         """Testing create in db"""
         with patch('sys.stdout', new=StringIO()) as cons_out:
             cons = HBNBCommand()
-
-            # Test that an error is raised when no arguments are passed
-            with self.assertRaises(sqlalchemy.exc.OperationalError):
-                cons.onecmd('create City')
-
-            cons.onecmd('create User email="test@hbnb.tech" \
-                        password="my_pass"')
+            cons.onecmd('create User email="test@hbnb.tech" password="pass"')
             _id = cons_out.getvalue().strip()
 
             db_connect = MySQLdb.connect(
