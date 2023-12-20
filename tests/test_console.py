@@ -11,18 +11,12 @@ from unittest.mock import patch
 from console import HBNBCommand
 from models import storage
 import MySQLdb
-# from models.base_model import BaseModel
-# from models.user import User
-
-
-def clear_stream(st):
-    print(st)
 
 
 class TestConsole(unittest.TestCase):
-    """Represents the test class for the HBNBCommand class.
     """
-
+    Test class for the console.
+    """
     def get_console(self, command):
         """Method for getting the console"""
         with patch('sys.stdout', new=StringIO()) as cons_out:
