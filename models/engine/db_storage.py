@@ -61,7 +61,12 @@ class DBStorage:
     def save(self):
         """Saves all changes to the session"""
         # self.__session.add_all()
-        self.__session.commit()
+        try:
+            # <use session>
+            self.__session.commit()
+        except Exception:
+            self.__session.rollback()
+            raise
 
     def delete(self, obj=None):
         """delete from the current database session obj if not None"""

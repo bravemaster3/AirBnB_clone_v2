@@ -20,24 +20,13 @@ class TestConsole(unittest.TestCase):
     """
     def setUp(self):
         # Redirect stdout to capture console output
-        self.stdout_patch = unittest.mock.patch('sys.stdout', new_callable=StringIO)
+        self.stdout_patch = unittest.mock.patch('sys.stdout',
+                                                new_callable=StringIO)
         self.stdout_mock = self.stdout_patch.start()
 
     def tearDown(self):
         # Clean up and restore stdout
         self.stdout_patch.stop()
-
-    # def test_non_nullable_column_not_provided(self):
-    #     # Attempt to create a State instance without providing 'name'
-    #     cons = HBNBCommand()
-    #     with self.assertRaises(IntegrityError):
-    #         state = State()
-    #         storage.new(state)
-    #         storage.save()
-
-        # Check that the expected IntegrityError message is printed
-        # self.assertIn("Column 'name' cannot be null", self.stdout_mock.getvalue())
-
 
     def get_console(self, command):
         """Method for getting the console"""
@@ -100,3 +89,5 @@ class TestConsole(unittest.TestCase):
             cursor.execute(f'SELECT * FROM users WHERE id="{_id}"')
             row = cursor.fetchone()
             self.assertTrue(row is not None)
+            cursor.close()
+            db_connect.close()
