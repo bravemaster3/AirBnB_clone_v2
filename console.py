@@ -135,10 +135,10 @@ class HBNBCommand(cmd.Cmd):
                     return data_type(float(value))
                 except Exception:
                     pass
-            elif not data_type:
-                return value
-            else:
-                pass
+            # elif not data_type:
+            #     return value
+            # else:
+            #     pass
 
     def do_create(self, args):
         """ Create an object of any class"""
@@ -161,7 +161,9 @@ class HBNBCommand(cmd.Cmd):
                     continue  # move to next param if spaces in the value
                 value = value.replace("_", " ")
                 if not (value.startswith('\"') and value.endswith('\"')):
-                    setattr(new_instance, key, self.cast_attr(value))
+                    casted_value = self.cast_attr(value)
+                    if type(casted_value) in [int, float]:
+                        setattr(new_instance, key, casted_value)
                 else:
                     value = value.replace('\"', '')
                     setattr(new_instance, key, value)

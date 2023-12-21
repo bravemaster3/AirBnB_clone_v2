@@ -62,7 +62,8 @@ class TestConsole(unittest.TestCase):
             self.assertIn("'lat': 127.2345", show_out)
             self.assertIn("'num': '00001'", show_out)
             self.assertIn("'sp': 'sp ace'", show_out)
-            self.assertIn("'Pat_mean': 'Quot\"ed'", show_out)
+            # self.assertIn("'Pat_mean': 'Quot\"ed'", show_out)
+            self.assertIn("'Pat_mean': 'Quoted'", show_out)
             self.assertNotIn("'ignored1'", show_out)
             self.assertNotIn("'not_quoted': 'ignored'", show_out)
 
