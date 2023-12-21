@@ -50,7 +50,9 @@ class TestConsole(unittest.TestCase):
             cons = HBNBCommand()
 
             cons.onecmd('create Place name="Center" num="00001" \
-                        max_guest=10 lat=127.2345 sp="sp_ace"')
+                        max_guest=10 lat=127.2345 sp="sp_ace" \
+                        Pat_mean="Quot\"ed" ignored1 \
+                        not_quoted=ignored')
             _id = cons_out.getvalue().strip()
 
             cons.onecmd(f"show Place {_id}")
@@ -60,6 +62,9 @@ class TestConsole(unittest.TestCase):
             self.assertIn("'lat': 127.2345", show_out)
             self.assertIn("'num': '00001'", show_out)
             self.assertIn("'sp': 'sp ace'", show_out)
+            self.assertIn("'Pat_mean': 'Quot\"ed'", show_out)
+            self.assertNotIn("'ignored1'", show_out)
+            self.assertNotIn("'not_quoted': 'ignored'", show_out)
 
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != "db",
                      "only available in the filestorage")
