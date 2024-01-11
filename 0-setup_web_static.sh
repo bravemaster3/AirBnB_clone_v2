@@ -6,7 +6,6 @@ then
     apt-get update
     apt-get install -y nginx
 fi
-service nginx start
 
 #folder creations
 mkdir -p /data/web_static/releases/test/
