@@ -9,3 +9,5 @@ setup_mysql_test1.sql
 file.json
 venv
 main_place_amenities.py
+test.cfg
+test.sh
