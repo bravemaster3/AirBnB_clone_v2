@@ -40,7 +40,7 @@ def do_deploy(archive_path):
         run(f"rm -f {rem_archive_path}")
         symlink = "/data/web_static/current"
         run(f"rm -rf {symlink}")
-        run(f"ln -s {x_archive} {symlink}")
+        run(f"ln -s {x_archive}/ {symlink}")
     except Exception:
         return False
 
