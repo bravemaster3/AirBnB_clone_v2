@@ -27,21 +27,24 @@ def do_deploy(archive_path):
 
     basename = os.path.basename(archive_path)
     rem_archive_path = f"/tmp/{basename}"
+    x_archive = "/data/web_static/releases/{}".format(
+        os.path.splitext(basename)[0]
+    )
 
-    try:
-        put(archive_path, rem_archive_path)
-        x_archive = "/data/web_static/releases/{}".format(
-            os.path.splitext(basename)[0]
-        )
-        run(f"mkdir -p {x_archive}")
-        run("tar -xvf {} -C {} --strip-components=1".format(
+    if put(archive_path, rem_archive_path).failed:
+        return False
+    if run(f"mkdir -p {x_archive}").failed:
+        return False
+    if run("tar -xvf {} -C {} --strip-components=1".format(
             rem_archive_path, x_archive
-            ))
-        run(f"rm -f {rem_archive_path}")
-        symlink = "/data/web_static/current"
-        run(f"rm -rf {symlink}")
-        run(f"ln -sf {x_archive} {symlink}")
-    except Exception:
+            )).failed:
+        return False
+    if run(f"rm -f {rem_archive_path}").failed:
+        return False
+    symlink = "/data/web_static/current"
+    if run(f"rm -rf {symlink}").failed:
+        return False
+    if run(f"ln -sf {x_archive} {symlink}").failed:
         return False
 
     return True
