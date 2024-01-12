@@ -15,13 +15,26 @@ ln -sf /data/web_static/releases/test/ /data/web_static/current
 # Ownership
 chown -hR ubuntu:ubuntu /data/
 # creating /hbnb_static location
-nginx_conf="/etc/nginx/sites-available/default"
-content_to_insert="\\
-\\    location /hbnb_static {\n\talias /data/web_static/current/;\n\tindex index.html index.htm;\n    }\\
-\\
-\\    error_page 404 \/404.html;"
-if ! grep -qF "location /hbnb_static" "$nginx_conf"
-then
-    sed -i "/error_page 404 \/404.html;/c $content_to_insert" "$nginx_conf"
-fi
+printf '%s%n' "server {
+    listen 80;
+    listen [::]:80;
+
+    add_header X-Served-By 422381-web-01;
+
+    server_name bravemaster.tech www.bravemaster.tech;
+    root /var/www/html;
+    index index.html index.htm;
+
+    location /hbnb_static {
+        alias /data/web_static/current/;
+        index index.html index.htm 0-index.html;
+    }
+
+    error_page 404 /404.html;
+
+    location /404 {
+        root /var/www/html;
+        internal;
+    }
+}" > /etc/nginx/sites-available/default
 service nginx start
