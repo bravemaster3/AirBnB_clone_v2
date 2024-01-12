@@ -15,7 +15,7 @@ ln -sf /data/web_static/releases/test/ /data/web_static/current
 # Ownership
 chown -hR ubuntu:ubuntu /data/
 # creating /hbnb_static location
-printf '%s%n' "server {
+printf '%s\n' "server {
     listen 80;
     listen [::]:80;
 
