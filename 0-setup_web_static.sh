@@ -6,7 +6,7 @@ apt-get upgrade
 apt-get install -y nginx
 #folder creations
 mkdir -p /data/web_static/releases/test/ /data/web_static/shared/
-echo "Hello Again World!" | tee /data/web_static/releases/test/index.html > /dev/null 2>&1
+echo "Hello Again World!" | tee /data/web_static/releases/test/index.html
 # Symbolic link
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 # Ownership
