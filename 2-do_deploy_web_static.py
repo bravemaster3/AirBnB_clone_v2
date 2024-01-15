@@ -20,17 +20,20 @@ def do_deploy(archive_path):
     try:
         put(archive_path, rem_archive_path)
         x_archive = "/data/web_static/releases/{}".format(
-            os.path.splitext(basename)[0]
+            # os.path.splitext(basename)[0]
+            basename
         )
         run(f"mkdir -p {x_archive}")
+        # run("tar -xzf {} -C {} --strip-components=1".format(
+        #     rem_archive_path, x_archive
+        #     ))
         run("tar -xzf {} -C {} --strip-components=1".format(
             rem_archive_path, x_archive
             ))
-        run(f"rm -f {rem_archive_path}")
+        run(f"rm -rf {rem_archive_path}")
         symlink = "/data/web_static/current"
         run(f"rm -rf {symlink}")
         run(f"ln -s {x_archive}/ {symlink}")
+        return True
     except Exception:
         return False
-
-    return True
