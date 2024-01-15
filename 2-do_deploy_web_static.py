@@ -11,9 +11,6 @@ env.hosts = [
 
 def do_deploy(archive_path):
     """distributes an archive to webservers"""
-    if not os.path.exists(archive_path):
-        return False
-
     basename = os.path.basename(archive_path)
     rem_archive_path = f"/tmp/{basename}"
 
