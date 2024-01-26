@@ -11,6 +11,7 @@ def hello():
     """greetings from HBNB"""
     return "Hello HBNB!"
 
+
 @app.route("/hbnb", strict_slashes=False)
 def whoami():
     """greetings from HBNB"""

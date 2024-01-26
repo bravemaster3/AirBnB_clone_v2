@@ -24,5 +24,13 @@ def howami(text=None):
     return f"C {text.replace('_', ' ')}"
 
 
+@app.route("/python", strict_slashes=False)
+@app.route("/python/", strict_slashes=False)
+@app.route("/python/<text>", strict_slashes=False)
+def always_cool(text="is cool"):
+    """Complete: Python is ?"""
+    return f"Python {text.replace('_', ' ')}"
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
