@@ -39,7 +39,7 @@ def number_only(n=None):
         n_int = int(n)
     except Exception:
         n_int = None
-    if type(n_int) is int:
+    if isinstance(n_int, int):
         return f"{n_int} is a number"
 
 
