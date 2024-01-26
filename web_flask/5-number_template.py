@@ -51,7 +51,7 @@ def number_template(n=None):
     except Exception:
         n_int = None
     if type(n_int) is int:
-        return render_template('5-number.html', n = n_int)
+        return render_template('5-number.html', n=n_int)
 
 
 if __name__ == '__main__':
