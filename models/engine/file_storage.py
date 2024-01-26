@@ -63,3 +63,7 @@ class FileStorage:
             temp_new = {k: v for k, v in temp.items() if v != obj}
             FileStorage.__objects = temp_new
             self.save()
+
+    def close(self):
+        """closes the file storage? reloads"""
+        self.reload()
