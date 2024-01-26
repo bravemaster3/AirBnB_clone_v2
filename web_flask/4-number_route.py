@@ -32,15 +32,10 @@ def always_cool(text="is cool"):
     return f"Python {text.replace('_', ' ')}"
 
 
-@app.route("/number/<n>", strict_slashes=False)
+@app.route("/number/<int:n>", strict_slashes=False)
 def number_only(n=None):
     """Complete: is n a number?"""
-    try:
-        n_int = int(n)
-    except Exception:
-        n_int = None
-    if isinstance(n_int, int):
-        return f"{n_int} is a number"
+    return f"{n} is a number"
 
 
 if __name__ == '__main__':
