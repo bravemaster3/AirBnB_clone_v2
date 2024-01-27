@@ -12,13 +12,6 @@ app = Flask(__name__)
 def list_cities_by_states():
     """Lists all states"""
     all_states = storage.all(State).values()
-    # cities_by_states = {}
-    # # sorted_states = sorted(all_states, key=lambda x: x.name)
-    # for state in all_states:
-    #     print(state.cities.name)
-    #     state_name = state.name
-    #     cities = [cities.to_dict() for city in state.cities]
-    #     cities_by_states[state_name] = cities
     return render_template("8-cities_by_states.html", states=all_states)
 
 
