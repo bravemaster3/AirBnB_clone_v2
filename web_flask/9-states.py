@@ -17,7 +17,7 @@ def states():
 
 @app.route("/states/<id>", strict_slashes=False)
 def state_by_id(id=None):
-    """Lists all states"""
+    """Lists all cities of a specific id"""
     all_states = storage.all(State).values()
     selected_state = list(filter(lambda x: x.id == id, all_states))
     if len(selected_state) == 0:
