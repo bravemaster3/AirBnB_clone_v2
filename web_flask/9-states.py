@@ -19,8 +19,11 @@ def states():
 def state_by_id(id=None):
     """Lists all states"""
     all_states = storage.all(State).values()
-    selected_state = None
     selected_state = list(filter(lambda x: x.id == id, all_states))
+    if len(selected_state) == 0:
+        selected_state = None
+    else:
+        selected_state = selected_state[0]
     return render_template("9-states.html", states=selected_state, cities=1)
 
 
